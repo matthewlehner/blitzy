@@ -6,7 +6,7 @@ Blitzy - A simple HTTP load tester in Elixir
 Inspired by this [post](http://www.watchsumo.com/posts/introduction-to-elixir-v1-0-0-by-example-i) by Victor Martinez of WatchSumo.
 
 ```
-% ./blitzy -n 100 http://www.bieberfever.com
+% ./blitzy -n 100 -r 2 http://www.bieberfever.com
 ```
 
 ## Distributed Blitzy
@@ -32,36 +32,29 @@ Start up a couple of nodes, and name them accordingly. For example, here's how t
 Now, when you run the the command
 
 ```
-% ./blitzy -n 100 http://www.bieberfever.com
+% ./blitzy -n 2 -r 2 http://www.bieberfever.com
 ```
 
 the requests will be split across the number of nodes you created, including the master node. Here's an example run:
 
 ```
-17:03:30.600 [info]  worker [a@127.0.0.1-256] completed in 5451.854 msecs
+15:00:34.777 [info]  worker [a@127.0.0.1-#PID<0.113.0>] completed in 711.052 msecs
 
-17:03:30.600 [info]  worker [b@127.0.0.1-289] completed in 5258.639999999999 msecs
+15:00:35.092 [info]  worker [a@127.0.0.1-#PID<0.118.0>] completed in 313.951 msecs
 
-17:03:30.600 [info]  worker [b@127.0.0.1-278] completed in 5272.281 msecs
-
-17:03:30.600 [info]  worker [a@127.0.0.1-310] completed in 5452.012 msecs
-
-17:03:30.600 [info]  worker [b@127.0.0.1-290] completed in 5258.318 msecs
-
-17:03:30.600 [info]  worker [b@127.0.0.1-237] completed in 5300.413 msecs
-...
-17:03:31.023 [info]  worker [a@127.0.0.1-322] completed in 5653.303 msecs
-  Succeeded         : 50
-  Failures          : 0
-  Total time (msecs): 542665.9879999999
-  Avg time   (msecs): 1629.6275915915912
+15:00:35.107 [info]  Finished pummelling https://www.tentamen.hr with 2 workers for 2 times over 2 nodes.
+Total requests    : 4
+Total workers    : 2
+Successful reqs  : 4
+Failed reqs      : 0
+Average (msecs)  : 467.3647500000001
+Longest (msecs)  : 711.052
+Shortest (msecs) : 313.951
 
 
-17:03:31.024 [info]  worker [c@127.0.0.1-22] completed in 5609.749 msecs
-  Succeeded         : 50 
-  Failures          : 0
-  Total time (msecs): 485414.8010000001
-  Avg time   (msecs): 1457.7021051051054
+15:00:34.574 [info]  worker [b@127.0.0.1-#PID<0.178.0>] completed in 517.94 msecs
+
+15:00:35.105 [info]  worker [b@127.0.0.1-#PID<0.185.0>] completed in 326.516 msecs
 ```
 
 ## Building the Executable
