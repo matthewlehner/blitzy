@@ -57,6 +57,30 @@ Shortest (msecs) : 313.951
 15:00:35.105 [info]  worker [b@127.0.0.1-#PID<0.185.0>] completed in 326.516 msecs
 ```
 
+## Scenarios with several request
+
+`lib\scenarios.ex` contains examples how to write scenario with several steps.  
+Every step (http request) should have unique name, otherwise it will not be possible to create html report for that particular request.  
+Consult [httpoison](https://github.com/edgurgel/httpoison) documentation.  
+When you are done with scenario, you need to build blitzy with `mix escript.build`
+
+
+## Results file
+
+When blitzy is finished, it creates cummulative `results.txt` file in following format:
+
+`ok,419.482,1483016889357,get`
+
+Field description: http request result :ok or :error, duration in milliseconds, request start timestamp as epoch, scenario method name
+
+Generate report
+
+When run is done:  
+
+`./blitzy -o report_name.html -s scenario_name`  
+
+Here is one report [example](report_example.html)
+
 ## Building the Executable
 
 ```
