@@ -4,3 +4,5 @@ erl_crash.dump
 *.ez
 blitzy
 .DS_Store
+cover
+*.html

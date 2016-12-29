@@ -12,7 +12,7 @@ defmodule Blitzy.CLI do
       |> process_options([node|Node.list])
   end
 
-  defp parse_args(args) do
+  def parse_args(args) do
     OptionParser.parse(args, aliases: [n: :requests, r: :repeats, s: :scenario, o: :graph_name],
                               strict: [requests: :integer, repeats: :integer, scenario: :string, graph_name: :string])
   end
@@ -42,7 +42,7 @@ defmodule Blitzy.CLI do
     -o, [--graph_name]    # output graph file name
 
     Example:
-    ./blitzy -n 100 -r 2 -s Blitzy.Scenarios.get http://www.bieberfever.com
+    ./blitzy -n 100 -r 2 -s get http://www.bieberfever.com
     ./blitzy -o graph_step_01.html -s step_01
     """
     System.halt(0)
