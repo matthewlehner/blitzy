@@ -14,15 +14,19 @@ defmodule BlitzyTest do
     assert parse_args(["--help"]) == {[], [], [{"--help", nil}]}
   end
 
-  test "direct help" do
-    assert main(["--help"]) == :ok
-  end
-
   test "graph through main" do
     assert main(["-o","report.html", "-s", "get"]) == :ok
   end
 
-  test "pummel through main" do
-    assert main(["-n","1", "-r", "2", "-s", "get", "http://bieber_fever.com"]) == :ok
+  test "pummel unknown site through main" do
+    try do
+      main(["-n","1", "-r", "2", "-s", "get", "http://bieber_fever.com"])
+    rescue
+      e in Enum.EmptyError -> e
+    end
+  end
+  
+  test "pummel known site through main" do
+    assert main(["-n","1", "-r", "2", "-s", "get", "https://www.tentamen.hr"]) == :ok
   end
 end

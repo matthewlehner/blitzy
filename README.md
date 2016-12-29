@@ -86,5 +86,9 @@ Here is one report ![](graph_example.png)
 ```
 mix escript.build
 ```
+## Run tests
 
+MIX_ENV=test mix coveralls.html
+
+open cover/excoveralls.html
 
