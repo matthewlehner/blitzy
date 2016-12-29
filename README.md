@@ -88,6 +88,6 @@ mix escript.build
 ```
 ## Run tests
 
-MIX_ENV=test mix coveralls.html
+`MIX_ENV=test mix coveralls.html`
 
-open cover/excoveralls.html
+`open cover/excoveralls.html`
