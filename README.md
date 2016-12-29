@@ -1,4 +1,4 @@
-Blitzy - A simple HTTP load tester in Elixir
+Blitzy - A not so simple HTTP load tester in Elixir
 ============================================
 
 ![](http://i.imgur.com/Z8zyXZu.gif)
@@ -91,4 +91,3 @@ mix escript.build
 MIX_ENV=test mix coveralls.html
 
 open cover/excoveralls.html
-
