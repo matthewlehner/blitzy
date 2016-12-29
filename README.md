@@ -79,7 +79,7 @@ When run is done:
 
 `./blitzy -o report_name.html -s scenario_name`  
 
-Here is one report [example](report_example.html)
+Here is one report [example](graph_example.html)
 
 ## Building the Executable
 
