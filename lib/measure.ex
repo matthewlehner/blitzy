@@ -15,16 +15,26 @@ defmodule Blitzy.Measure do
   defp handle_poison_response({msecs, {:ok, %HTTPoison.Response{status_code: code}}})
   when code >= 200 and code <= 304 do
     Logger.info "worker [#{node}-#{inspect self}] completed in #{msecs} msecs"
-    {:ok, msecs}
+    {:ok, msecs, code}
   end
 
-  defp handle_poison_response({_msecs, {:error, reason}}) do
+  defp handle_poison_response({msecs, {:ok, %HTTPoison.Response{status_code: code}}}) do
+    Logger.info "worker [#{node}-#{inspect self}] completed in #{msecs} msecs"
+    {:error, msecs, code}
+  end
+
+  defp handle_poison_response({msecs, {:error, %HTTPoison.Response{status_code: code}}}) do
+    Logger.info "worker [#{node}-#{inspect self}] completed in #{msecs} msecs"
+    {:error, msecs, code}
+  end
+
+  defp handle_poison_response({msecs, {:error, %HTTPoison.Error{reason: reason}}}) do
      Logger.info "worker [#{node}-#{inspect self}] error due to #{inspect reason}"
-    {:error, reason}
+    {:error, msecs, reason}
   end
 
-  defp handle_poison_response({_msecs, _}) do
+  defp handle_poison_response({msecs, _}) do
      Logger.info "worker [#{node}-#{inspect self}] unknown error"
-    {:error, :unknown}
+    {:error, msecs, :unknown}
   end
 end

@@ -2,18 +2,30 @@ defmodule Blitzy.Graph do
 
   def create_graph_data name do
     results = Blitzy.Result.read_results
-    results = List.flatten results
-    results = Enum.filter(results, fn {_,_,_,step} -> step == name end)
-    first = results |> Enum.map(fn {_, _time, start, _name} -> start end) |> Enum.min
+    results = filter_out_step results,name
+    first = first_req results
+    results
+    |> create_graph_data(first)
+  end
+
+  def create_graph_data results, first do
     results
     |> Enum.map(fn x ->
              case x do
-               {:ok, duration, start, _} -> [start - first, duration,0]
-               {_, duration, start, _} -> [start - first, 0, duration]
+               {:ok, duration, _code, start, _} -> [start - first, duration,0]
+               {_, duration, _code, start, _} -> [start - first, 0, duration]
            end
          end)
     |> Enum.map(fn x -> "[#{Enum.join(x,",")}]" end)
     |> Enum.join(",")
+  end
+
+  def first_req results do
+    results |> Enum.map(fn {_, _time, _reason, start, _name} -> start end) |> Enum.min
+  end
+
+  def filter_out_step results, name do
+    Enum.filter(results, fn {_,_,_,_,step} -> step == name end)
   end
 
   def create_graph(data,scenario,name) do
@@ -28,7 +40,7 @@ defmodule Blitzy.Graph do
     |> html
   end
   
-  defp html(script) do
+  def html(script) do
     """
     <html>
   <head>
@@ -43,7 +55,7 @@ defmodule Blitzy.Graph do
 </html>
    """
   end
-  defp script(data,name) do
+  def script(data,name) do
     """
     google.charts.load('current', {packages: ['corechart', 'line']});
 google.charts.setOnLoadCallback(drawCrosshairs);

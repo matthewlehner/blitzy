@@ -25,7 +25,8 @@ defmodule Blitzy.Mixfile do
     [
       {:httpoison, "~> 0.10.0"},
       {:timex,     "~> 3.1"},
-      {:excoveralls, "~> 0.5", only: :test}
+      {:excoveralls, "~> 0.5", only: :test},
+      {:mock, "~> 0.2.0", only: :test}
     ]
   end
 end

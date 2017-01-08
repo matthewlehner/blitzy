@@ -1,4 +1,4 @@
-defmodule BlitzyTest do
+defmodule BlitzyCLITest do
   use ExUnit.Case
   doctest Blitzy
   import Blitzy.CLI
@@ -18,15 +18,4 @@ defmodule BlitzyTest do
     assert main(["-o","report.html", "-s", "get"]) == :ok
   end
 
-  test "pummel unknown site through main" do
-    try do
-      main(["-n","1", "-r", "2", "-s", "get", "http://bieber_fever.com"])
-    rescue
-      e in Enum.EmptyError -> e
-    end
-  end
-  
-  test "pummel known site through main" do
-    assert main(["-n","1", "-r", "2", "-s", "get", "https://www.tentamen.hr"]) == :ok
-  end
 end
