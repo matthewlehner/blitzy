@@ -18,13 +18,23 @@ defmodule Blitzy.Measure do
     {:ok, msecs, code}
   end
 
-  defp handle_poison_response({msecs, {_, reason}}) do
+  defp handle_poison_response({msecs, {:ok, %HTTPoison.Response{status_code: code}}}) do
+    Logger.info "worker [#{node}-#{inspect self}] completed in #{msecs} msecs"
+    {:error, msecs, code}
+  end
+
+  defp handle_poison_response({msecs, {:error, %HTTPoison.Response{status_code: code}}}) do
+    Logger.info "worker [#{node}-#{inspect self}] completed in #{msecs} msecs"
+    {:error, msecs, code}
+  end
+
+  defp handle_poison_response({msecs, {:error, %HTTPoison.Error{reason: reason}}}) do
      Logger.info "worker [#{node}-#{inspect self}] error due to #{inspect reason}"
     {:error, msecs, reason}
   end
 
-  defp handle_poison_response({msecs, %HTTPoison.Error{reason: reason}}) do
+  defp handle_poison_response({msecs, _}) do
      Logger.info "worker [#{node}-#{inspect self}] unknown error"
-    {:error, msecs, reason}
+    {:error, msecs, :unknown}
   end
 end
