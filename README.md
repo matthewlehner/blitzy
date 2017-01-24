@@ -6,7 +6,7 @@ Blitzy - A not so simple HTTP load tester in Elixir
 Inspired by this [post](http://www.watchsumo.com/posts/introduction-to-elixir-v1-0-0-by-example-i) by Victor Martinez of WatchSumo.
 
 ```
-% ./blitzy -n 100 -r 2 http://www.bieberfever.com
+% ./blitzy -n 100 -r 2 -s get http://www.bieberfever.com
 ```
 
 ## Distributed Blitzy
@@ -32,24 +32,32 @@ Start up a couple of nodes, and name them accordingly. For example, here's how t
 Now, when you run the the command
 
 ```
-% ./blitzy -n 2 -r 2 http://www.bieberfever.com
+% ./blitzy -n 2 -r 2 -s get http://www.bieberfever.com
 ```
 
 the requests will be split across the number of nodes you created, including the master node. Here's an example run:
 
 ```
-15:00:34.777 [info]  worker [a@127.0.0.1-#PID<0.113.0>] completed in 711.052 msecs
+11:36:10.961 [info]  Protocol 'inet_tcp': register/listen error: econnrefused
 
-15:00:35.092 [info]  worker [a@127.0.0.1-#PID<0.118.0>] completed in 313.951 msecs
 
-15:00:35.107 [info]  Finished pummelling https://www.tentamen.hr with 2 workers for 2 times over 2 nodes.
+11:36:12.116 [info]  worker [nonode@nohost-#PID<0.102.0>] completed in 1092.0 msecs
+
+11:36:12.116 [info]  worker [nonode@nohost-#PID<0.101.0>] completed in 1092.0 msecs
+
+11:36:12.116 [info]  worker [nonode@nohost-#PID<0.110.0>] completed in 0.0 msecs
+
+11:36:12.116 [info]  worker [nonode@nohost-#PID<0.111.0>] completed in 0.0 msecs
+
+11:36:12.116 [info]  Finished pummelling http://www.bieberfever.com with get scenario and with 2 workers for 1 times over 1 nodes.
 Total requests    : 4
 Total workers    : 2
 Successful reqs  : 4
 Failed reqs      : 0
-Average (msecs)  : 467.3647500000001
-Longest (msecs)  : 711.052
-Shortest (msecs) : 313.951
+Average (msecs)  : 546.0
+Longest (msecs)  : 1092.0
+Shortest (msecs) : 0.0
+RPS (secs)       : 3.558718861209964
 
 
 15:00:34.574 [info]  worker [b@127.0.0.1-#PID<0.178.0>] completed in 517.94 msecs
@@ -69,9 +77,9 @@ When you are done with scenario, you need to build blitzy with `mix escript.buil
 
 When blitzy is finished, it creates cummulative `results.txt` file in following format:
 
-`ok,419.482,1483016889357,get`
+`ok,0.0,200,1485254172116,get`
 
-Field description: http request result :ok or :error, duration in milliseconds, request start timestamp as epoch, scenario method name
+Field description: http request result :ok or :error, duration in milliseconds, http status code, request start timestamp as epoch, scenario method name
 
 Generate report
 
