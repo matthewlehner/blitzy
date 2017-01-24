@@ -23,6 +23,10 @@ defmodule Blitzy.Graph do
   def first_req results do
     results |> Enum.map(fn {_, _time, _reason, start, _name} -> start end) |> Enum.min
   end
+  
+  def last_req results do
+    results |> Enum.map(fn {_, _time, _reason, start, _name} -> start end) |> Enum.max
+  end
 
   def filter_out_step results, name do
     Enum.filter(results, fn {_,_,_,_,step} -> step == name end)

@@ -8,7 +8,7 @@ defmodule BlitzyRequestTest do
     with_mock HTTPoison,
         [get: fn("http://example.com") ->
             {:ok, %HTTPoison.Response{status_code: 200}} end] do
-            assert do_requests([],2,2,"get","http://example.com",[node],[]) == :ok
+            assert do_requests([],2,2,"get_mock","http://example.com",[node],[]) == :ok
     end
   end
 end

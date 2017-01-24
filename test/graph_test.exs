@@ -21,6 +21,10 @@ defmodule BlitzyGraphTest do
     input = [{:ok, 0.083, 200, 1483802531706, "get"}, {:error, 0.04, 500, 1483802531707, "geti"}]
     assert first_req(input) == 1483802531706
   end
+  test 'last request' do
+    input = [{:ok, 0.083, 200, 1483802531706, "get"}, {:error, 0.04, 500, 1483802531707, "geti"}]
+    assert last_req(input) == 1483802531707
+  end
   test 'create graph data' do
     input = [{:ok, 0.083, 200, 1483802531706, "get"}, {:error, 0.04, 500, 1483802531707, "get"}]
     assert create_graph_data(input,1483802531706) == "[0,0.083,0],[1,0,0.04]"

@@ -2,7 +2,7 @@ defmodule Blitzy.Result do
 
   def parse_results(results,n_requests) do
     results = List.flatten(results)
-    {total_results,total_workers,total_success,total_failure,average_time,longest_time,shortest_time} = calc_stats results,n_requests
+    {total_results,total_workers,total_success,total_failure,average_time,longest_time,shortest_time,duration} = calc_stats results,n_requests
 
     IO.puts """
     Total requests    : #{total_results}
@@ -12,6 +12,7 @@ defmodule Blitzy.Result do
     Average (msecs)  : #{average_time}
     Longest (msecs)  : #{longest_time}
     Shortest (msecs) : #{shortest_time}
+	RPS (secs)       : #{total_results/duration * 1000}
     """
     results
   end
@@ -31,7 +32,8 @@ defmodule Blitzy.Result do
       true ->
         {0,0}
     end
-    {total_results,total_workers,total_success,total_failure,average_time,longest_time,shortest_time}
+	duration = Blitzy.Graph.last_req(results) - Blitzy.Graph.first_req(results)
+    {total_results,total_workers,total_success,total_failure,average_time,longest_time,shortest_time,duration}
   end
 
   def filter_success_durations successes do
