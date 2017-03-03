@@ -32,7 +32,13 @@ defmodule Blitzy.Result do
       true ->
         {0,0}
     end
-	duration = Blitzy.Graph.last_req(results) - Blitzy.Graph.first_req(results)
+	duration =
+	  case Blitzy.Graph.last_req(results) - Blitzy.Graph.first_req(results) do
+	    0 ->
+	      1
+	    x ->
+	      x
+	  end
     {total_results,total_workers,total_success,total_failure,average_time,longest_time,shortest_time,duration}
   end
 
