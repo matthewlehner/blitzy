@@ -67,7 +67,7 @@ RPS (secs)       : 3.558718861209964
 
 ## Scenarios with several request
 
-`lib\scenarios.ex` contains examples how to write scenario with several steps.  
+`lib\scenario.ex` contains examples how to write scenario with several steps.  
 Every step (http request) should have unique name, otherwise it will not be possible to create html report for that particular request.  
 Consult [httpoison](https://github.com/edgurgel/httpoison) documentation.  
 When you are done with scenario, you need to build blitzy with `mix escript.build`
