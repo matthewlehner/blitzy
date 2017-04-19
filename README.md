@@ -41,13 +41,13 @@ the requests will be split across the number of nodes you created, including the
 11:36:10.961 [info]  Protocol 'inet_tcp': register/listen error: econnrefused
 
 
-11:36:12.116 [info]  worker [nonode@nohost-#PID<0.102.0>] completed in 1092.0 msecs
+11:36:12.116 [info]  worker [nonode@nohost-#PID<0.102.0>] completed in 1092.0 msecs with code 200
 
-11:36:12.116 [info]  worker [nonode@nohost-#PID<0.101.0>] completed in 1092.0 msecs
+11:36:12.116 [info]  worker [nonode@nohost-#PID<0.101.0>] completed in 1092.0 msecs with code 403
 
-11:36:12.116 [info]  worker [nonode@nohost-#PID<0.110.0>] completed in 0.0 msecs
+11:36:12.116 [info]  worker [nonode@nohost-#PID<0.110.0>] completed in 0.0 msecs with code 200
 
-11:36:12.116 [info]  worker [nonode@nohost-#PID<0.111.0>] completed in 0.0 msecs
+11:36:12.116 [info]  worker [nonode@nohost-#PID<0.111.0>] completed in 0.0 msecs with code 403
 
 11:36:12.116 [info]  Finished pummelling http://www.bieberfever.com with get scenario and with 2 workers for 1 times over 1 nodes.
 Total requests    : 4
@@ -71,6 +71,10 @@ RPS (secs)       : 3.558718861209964
 Every step (http request) should have unique name, otherwise it will not be possible to create html report for that particular request.  
 Consult [httpoison](https://github.com/edgurgel/httpoison) documentation.  
 When you are done with scenario, you need to build blitzy with `mix escript.build`
+
+## Application secrets
+
+Store you secrets in config/secrets.exs file.
 
 
 ## Results file

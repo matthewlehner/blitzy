@@ -7,3 +7,4 @@ blitzy
 cover
 *.html
 results.txt
+config/secrets.exs
