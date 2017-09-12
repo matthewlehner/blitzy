@@ -1,8 +1,14 @@
-defmodule Blitzy.Scenarios do  
-  
-  @headers %{"Accept-Encoding" => "gzip, deflate, br","Accept-Language" => "hr-HR,hr;q=0.8,en-US;q=0.6,en;q=0.4",
-               "User-Agent" => "blitzy", "Content-Type" => "application/json;charset=UTF-8",
-               "Accept" => "application/json, text/plain, */*", "Connection" => "keep-alive"}  
+defmodule Blitzy.Scenarios do
+
+  def post site do
+    Blitzy.Measure.duration_of_http_poison(fn ->
+      HTTPoison.post(
+        "https://pixelpop-loading.herokuapp.com/api/client/instances",
+        [],
+        [{"Origin", site}, {"Referer", site}]
+      )
+    end, "post")
+  end
 
   def get url do
     Blitzy.Measure.duration_of_http_poison(fn -> HTTPoison.get(url,[],hackney: [:insecure]) end, "get")
