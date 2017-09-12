@@ -2,13 +2,13 @@ defmodule Blitzy.Measure do
   use Timex
   require Logger
   def duration_of_http_poison(poison,name) do
-    start_time = start
+    start_time = start()
     {timestamp, response} = Duration.measure(poison)
     handle_poison_response({Duration.to_milliseconds(timestamp), response})
     |> Tuple.append(start_time)
     |> Tuple.append(name)
   end
-  
+
   def start do
     Duration.now(:milliseconds)
   end
